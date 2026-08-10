@@ -1,42 +1,51 @@
 #include <unistd.h>
-void ft_putchar(char c)
-{
-    write(1,&c,1);
-}
-void snake_camels(char *str)
+#include <stdio.h>
+char *ft_strlowercase(char *str)
 {
     int i;
     i = 0;
-    int letter;
-    letter = 0;
     while(str[i])
     {
-        while(str[i] >= 'A' && str[i] <= 'Z')
-                str[i] += 32;
-        while(str[i] == ' ')
+        if(str[i] >= 'A' && str[i] <= 'Z')
         {
-            ft_putchar(' ');
-            i++;
-            continue;
+            str[i] += 32;
             
         }
-            if( letter % 2 == 0 )
-            {
-                str[i] -= 32;
-                    ft_putchar(str[i]);
-            }
-            else
-            {
-                ft_putchar(str[i]);
-            }
-
-        letter++;
         i++;
     }
+    return(str);
 }
-int main(int argc, char ** argv)
+void snake_camels(char *str)
+{
+    ft_strlowercase(str);
+    int i;
+    int x;
+    x = 0;
+    i = 0;
+    while(str[i])
+    {
+        if( str[i] == ' ')
+        {
+            
+            write(1,&str[i],1);
+            i++;
+            continue;
+        }
+        else if( x % 2 == 0 &&  str[i] >= 'a' && str[i] <= 'z' )
+        {
+            str[i] -= 32;
+            write(1,&str[i],1);
+        }
+        else{
+            write(1,&str[i],1);
+        }
+        i++;
+        x++;
+    }
+}
+int main(int argc, char **argv)
 {
     if(argc == 2)
         snake_camels(argv[1]);
-    ft_putchar('\n');
+    write(1,"\n",1);
 }
